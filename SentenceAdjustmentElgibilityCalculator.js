@@ -1,41 +1,91 @@
-var SEVENTYFIVE = 0.75;
-var EIGHTYFIVE = 0.85;
+// angular.module('myModule', ['ui.bootstrap']);
+// angular.module('ui.bootstrap.demo', ['ngAnimate', 'ui.bootstrap']);
 
-var length_of_confinement = {};
-length_of_confinement.years = 10;
-length_of_confinement.months = 2;
-length_of_confinement.days = 4;
-var applicablePercentage = SEVENTYFIVE;
+var formApp = angular.module('formApp', []);
 
-var date_sentence_began = {};
-date_sentence_began.year = 2000;
-date_sentence_began.month = 0;
-date_sentence_began.day = 0;
+formApp.controller('formController', function($scope) {
+
+    // we will store our form data in this object
+    $scope.formData = {};
+    $scope.myDate = new Date();
+    $scope.showCalculation = false;
+    $scope.releaseElgibilityDate = {};
+    $scope.dateSentenceBegan = {};
+    $scope.lengthOfConfinement = {};
+
+    $scope.calculate = function() {
+        $scope.showCalculation = true;
+        console.log("bam");
+        // converting total length confinement into days
+        lengthOfConfinement.total = lengthOfConfinement.year * 365 + lengthOfConfinement.months * 30 + lengthOfConfinement.days;
+
+        //multiplying by the applicable percentage to get total time to serve in days
+        var totalDaysToElgibility = Math.floor(lengthOfConfinement.total * applicablePercentage);
+
+        //converting back into year, months, and days
+        var yearToElgibility = Math.floor(totalDaysToElgibility / 360);
+        var monthsToElgibility = Math.floor((totalDaysToElgibility - yearToElgibility * 360) / 30);
+        var daysToElgibility = (totalDaysToElgibility - monthsToElgibility * 30 - yearToElgibility * 360);
+
+        var releaseElgibilityDate = {};
+        releaseElgibilityDate.year = dateSentenceBegan.year + yearToElgibility;
+        releaseElgibilityDate.month = dateSentenceBegan.month + monthsToElgibility;
+        releaseElgibilityDate.day = dateSentenceBegan.day + daysToElgibility;
+
+        if (releaseElgibilityDate.day >= 30) {
+            releaseElgibilityDate.month += Math.floor(releaseElgibilityDate.day / 30);
+            releaseElgibilityDate.day = releaseElgibilityDate.day - releaseElgibilityDate.month * 30;
+        }
 
 
-length_of_confinement.total = length_of_confinement.years * 365 + length_of_confinement.months * 30 + length_of_confinement.days;
+        if (releaseElgibilityDate.month >= 12) {
+            releaseElgibilityDate.year += Math.floor(releaseElgibilityDate.month / 12);
+            releaseElgibilityDate.month = releaseElgibilityDate.month - releaseElgibilityDate.year * 12;
+        }
+
+    };
 
 
-var totalDaysToElgibility = Math.floor(length_of_confinement.total * applicablePercentage);
-
-var yearsToElgibility = Math.floor(totalDaysToElgibility / 365);
-var monthsToElgibility = Math.floor((totalDaysToElgibility - yearsToElgibility * 365) / 30);
-var daysToElgibility = (totalDaysToElgibility - monthsToElgibility * 30 - yearsToElgibility * 365);
-
-var release_elgibility_date = {};
-release_elgibility_date.year = date_sentence_began.year + yearsToElgibility;
-release_elgibility_date.month = date_sentence_began.month + monthsToElgibility;
-release_elgibility_date.day = date_sentence_began.day + daysToElgibility;
-
-if (release_elgibility_date.day >= 30) {
-    release_elgibility_date.month += Math.floor(release_elgibility_date.day / 30);
-    release_elgibility_date.day = release_elgibility_date.day - release_elgibility_date.month * 30;
-}
+});
 
 
-if (release_elgibility_date.month >= 12) {
-    release_elgibility_date.year += Math.floor(release_elgibility_date.month / 12);
-    release_elgibility_date.month = release_elgibility_date.month - release_elgibility_date.year * 12;
-}
+// //setting variables
 
-alert("This prisoner will be released "+ release_elgibility_date.month +"/" + release_elgibility_date.day +"/" + release_elgibility_date.year);
+// lengthOfConfinement.year = 10;
+// lengthOfConfinement.months = 2;
+// lengthOfConfinement.days = 4;
+// var applicablePercentage = formData.applicablePercentage;
+
+// var dateSentenceBegan = {};
+// dateSentenceBegan.year = 2000;
+// dateSentenceBegan.month = 0;
+// dateSentenceBegan.day = 0;
+
+// // converting total length confinement into days
+// lengthOfConfinement.total = lengthOfConfinement.year * 365 + lengthOfConfinement.months * 30 + lengthOfConfinement.days;
+
+// //multiplying by the applicable percentage to get total time to serve in days
+// var totalDaysToElgibility = Math.floor(lengthOfConfinement.total * applicablePercentage);
+
+// //converting back into year, months, and days
+// var yearToElgibility = Math.floor(totalDaysToElgibility / 360);
+// var monthsToElgibility = Math.floor((totalDaysToElgibility - yearToElgibility * 360) / 30);
+// var daysToElgibility = (totalDaysToElgibility - monthsToElgibility * 30 - yearToElgibility * 360);
+
+// var releaseElgibilityDate = {};
+// releaseElgibilityDate.year = dateSentenceBegan.year + yearToElgibility;
+// releaseElgibilityDate.month = dateSentenceBegan.month + monthsToElgibility;
+// releaseElgibilityDate.day = dateSentenceBegan.day + daysToElgibility;
+
+// if (releaseElgibilityDate.day >= 30) {
+//     releaseElgibilityDate.month += Math.floor(releaseElgibilityDate.day / 30);
+//     releaseElgibilityDate.day = releaseElgibilityDate.day - releaseElgibilityDate.month * 30;
+// }
+
+
+// if (releaseElgibilityDate.month >= 12) {
+//     releaseElgibilityDate.year += Math.floor(releaseElgibilityDate.month / 12);
+//     releaseElgibilityDate.month = releaseElgibilityDate.month - releaseElgibilityDate.year * 12;
+// }
+
+// alert("This prisoner will be released " + releaseElgibilityDate.month + "/" + releaseElgibilityDate.day + "/" + releaseElgibilityDate.year);

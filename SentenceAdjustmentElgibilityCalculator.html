@@ -1,11 +1,63 @@
 <<!DOCTYPE html>
-    <html ng-app="ui.bootstrap.demo">
+    <!-- <html> -->
+    <html ng-app="formApp">
+    <!-- <head ng-controller="formController"> -->
 
     <head>
-    </head>
+        <title>Sentence Adjustment Elgibility Calculator</title>
+        <link rel="stylesheet" href="bower_components/angular-ui/build/angular-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="SAEC.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
-    <body>
-        <script src="SentenceAdjustmentElgibilityCalculator.js"></script>
-    </body>
+        <body class="center">
+            <h1>Sentence Adjustment Elgibility Calculator</h1>
+            <h3>Applicable Percentage {{formData.applicablePercentage}}</h3>
+            <form action="" ng-click="setPercentage(value)">
+                <input type="radio" name="applicablePercentage" value="0.75" ng-model="formData.applicablePercentage"> 75%
+                <br>
+                <input type="radio" name="applicablePercentage" value="0.85" ng-model="formData.applicablePercentage"> 85%
+                <h2>Length of Confinement {{lengthOfConfinement.year}} year, {{lengthOfConfinement.month}} months, and {{lengthOfConfinement.day}} days.</h2>
+                <form name="myForm">
+                    <label>
+                        year
+                        <input type="number" ng-model="lengthOfConfinement.year" required>
+                    </label>
+                    <label>
+                        Months
+                        <input type="number" ng-model="lengthOfConfinement.month" required>
+                    </label>
+                    <label>
+                        Days
+                        <input type="number" ng-model="lengthOfConfinement.day" required>
+                    </label>
+                </form>
+                <h2>Date Sentence Began {{dateSentenceBegan.year}}-{{dateSentenceBegan.month}}-{{dateSentenceBegan.day}}</h2>
+            </form>
+            <form name="myForm">
+                <label>
+                    Year
+                    <input type="number" ng-model="dateSentenceBegan.year" required>
+                </label>
+                <label>
+                    Month
+                    <input type="number" ng-model="dateSentenceBegan.month" required>
+                </label>
+                <label>
+                    Day
+                    <input type="number" ng-model="dateSentenceBegan.day" required>
+                </label>
+            </form>
+            <button ng-click="calculate()">Calculate</button>
+            <br>
+            <br>
+            <h2 ng-show="showCalculation">This prisoner will be released {{releaseElgibilityDate.month}}/{{releaseElgibilityDate.day}}/{{releaseElgibilityDate.year}}</h2>
+            <script src="bower_components/jquery/dist/jquery.min.js"></script>
+            <script src="bower_components/angular/angular.min.js"></script>
+            <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+            <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+            <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script src="SentenceAdjustmentElgibilityCalculator.js"></script>
+            <!-- <script src="datePickerDemo.js"></script> -->
+        </body>
 
     </html>
