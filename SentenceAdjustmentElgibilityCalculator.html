@@ -9,51 +9,44 @@
 
     <body class="center">
         <h1>Sentence Adjustment Elgibility Calculator</h1>
-
-        <h3 id="applicablePercentage" >Applicable Percentage</h3>
-        <form >
-            <input type="radio" name="applicablePercentage" value="0.75"> 75%
+        <h3 id="applicablePercentage">Applicable Percentage</h3>
+        <form>
+            <input type="radio" name="applicablePercentage" value="0.75" checked> 75%
             <br>
             <input type="radio" name="applicablePercentage" value="0.85"> 85%
         </form>
-
         <h3 id="lengthOfConfinement">Length of Confinement</h3>
-        <form name="LOCForm">
+        <form name="form">
             <label>
                 year
-                <input type="number" required id="LOCyear">
+                <input type="number" id="LOCyear" min="0" value="0">
             </label>
             <label>
                 Months
-                <input type="number" required id="LOCmonth">
+                <input type="number" id="LOCmonth" min="0" max="12" value="0">
             </label>
             <label>
                 Days
-                <input type="number" required id="LOCday">
+                <input type="number" id="LOCday" min="0" max="31" value="0">
             </label>
-        </form>
-
-        <h3>Date Sentence Began</h3>
-        <form name="DSBForm">
+            <h3>Date Sentence Began</h3>
             <label>
                 Year
-                <input type="number" required id="DSByear">
+                <input type="number" id="DSByear" min="1" max="4000" value="2000">
             </label>
             <label>
                 Month
-                <input type="number" required id="DSBmonth">
+                <input type="number" id="DSBmonth" min="1" max="12" value="1">
             </label>
             <label>
                 Day
-                <input type="number" required id="DSBday">
+                <input type="number" id="DSBday" min="1" max="31" value="1">
             </label>
         </form>
-
         <button onclick="calculate()">Calculate</button>
         <br>
         <br>
         <h3 id="result"></h3>
-
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="SentenceAdjustmentElgibilityCalculator.js"></script>
     </body>
